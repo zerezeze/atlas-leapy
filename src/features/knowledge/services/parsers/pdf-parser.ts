@@ -1,6 +1,6 @@
 import { DocumentParser, ParsedChunk } from './types';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const pdfParse = require('pdf-parse');
+const pdfParse = require('pdf-parse/lib/pdf-parse.js');
 
 // Sometimes pdf-parse exports as default, sometimes not depending on module resolution
 const pdf = pdfParse.default || pdfParse;
