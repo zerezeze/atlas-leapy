@@ -152,103 +152,105 @@ export function ChatContainer({
   };
 
   return (
-    <div className="flex flex-col h-full w-full bg-zinc-50 dark:bg-zinc-950">
-      <div className="flex-1 px-4 pt-8 overflow-y-auto">
-        <div className="max-w-3xl mx-auto w-full flex flex-col pb-6">
-          {messages.length === 0 && (
-            <div className="flex flex-col items-center justify-center text-center mt-12 mb-16 gap-6 animate-in fade-in zoom-in duration-500">
-              <div className="w-16 h-16 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
-                <Compass className="w-8 h-8 -rotate-3" />
+    <div className="flex flex-col flex-1 min-h-0 w-full bg-zinc-50 dark:bg-zinc-950">
+      <div className="flex-1 relative">
+        <div className="absolute inset-0 px-4 pt-8 overflow-y-auto">
+          <div className="max-w-3xl mx-auto w-full flex flex-col pb-6">
+            {messages.length === 0 && (
+              <div className="flex flex-col items-center justify-center text-center mt-12 mb-16 gap-6 animate-in fade-in zoom-in duration-500">
+                <div className="w-16 h-16 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
+                  <Compass className="w-8 h-8 -rotate-3" />
+                </div>
+                <div className="space-y-2">
+                  <h1 className="text-2xl font-bold tracking-tight">
+                    Olá, sou o Atlas 👋
+                  </h1>
+                  <p className="text-[15px] text-muted-foreground max-w-md leading-relaxed mx-auto">
+                    Seu assistente inteligente de Customer Success.
+                    <br />
+                    {documentCount === 0
+                      ? 'Faça o upload do primeiro documento na Knowledge Base para começar a usar a Inteligência Artificial.'
+                      : 'Posso ajudar com informações baseadas na sua documentação institucional.'}
+                  </p>
+                </div>
+
+                {documentCount === 0 && (
+                  <div className="mt-4 p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-300 max-w-md text-sm font-medium">
+                    Esta organização ainda não possui uma base de conhecimento.
+                    Faça upload do primeiro documento na Knowledge Base para
+                    começar.
+                  </div>
+                )}
+
+                {documentCount > 0 && organizationSlug === 'leapy' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 w-full max-w-2xl text-left">
+                    {[
+                      'Como funciona o cancelamento Enterprise?',
+                      'Quais integrações existem atualmente?',
+                      'Qual é o processo de onboarding de novos clientes?',
+                      'Como funciona o fluxo de devolução financeira?',
+                    ].map((suggestion, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleSendMessage(suggestion)}
+                        className="flex items-start gap-3 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors shadow-sm text-left group"
+                      >
+                        <Sparkles className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
+                        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                          {suggestion}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
-              <div className="space-y-2">
-                <h1 className="text-2xl font-bold tracking-tight">
-                  Olá, sou o Atlas 👋
-                </h1>
-                <p className="text-[15px] text-muted-foreground max-w-md leading-relaxed mx-auto">
-                  Seu assistente inteligente de Customer Success.
-                  <br />
-                  {documentCount === 0
-                    ? 'Faça o upload do primeiro documento na Knowledge Base para começar a usar a Inteligência Artificial.'
-                    : 'Posso ajudar com informações baseadas na sua documentação institucional.'}
-                </p>
-              </div>
+            )}
 
-              {documentCount === 0 && (
-                <div className="mt-4 p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-300 max-w-md text-sm font-medium">
-                  Esta organização ainda não possui uma base de conhecimento.
-                  Faça upload do primeiro documento na Knowledge Base para
-                  começar.
-                </div>
-              )}
+            {messages.map((msg) => (
+              <ChatMessage
+                key={msg.id}
+                role={msg.role}
+                content={msg.content}
+                status={msg.status}
+                sources={msg.sources}
+                retrievalScore={msg.retrievalScore}
+                explanation={msg.explanation}
+              />
+            ))}
 
-              {documentCount > 0 && organizationSlug === 'leapy' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 w-full max-w-2xl text-left">
-                  {[
-                    'Como funciona o cancelamento Enterprise?',
-                    'Quais integrações existem atualmente?',
-                    'Qual é o processo de onboarding de novos clientes?',
-                    'Como funciona o fluxo de devolução financeira?',
-                  ].map((suggestion, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleSendMessage(suggestion)}
-                      className="flex items-start gap-3 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors shadow-sm text-left group"
-                    >
-                      <Sparkles className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
-                      <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                        {suggestion}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {messages.map((msg) => (
-            <ChatMessage
-              key={msg.id}
-              role={msg.role}
-              content={msg.content}
-              status={msg.status}
-              sources={msg.sources}
-              retrievalScore={msg.retrievalScore}
-              explanation={msg.explanation}
-            />
-          ))}
-
-          {isLoading && messages[messages.length - 1]?.role === 'user' && (
-            <div className="flex w-full justify-start mb-6 animate-in fade-in duration-300">
-              <div className="flex gap-4 max-w-[85%] flex-row">
-                <div className="h-8 w-8 mt-1 shrink-0 bg-zinc-200 dark:bg-zinc-800 rounded-full flex items-center justify-center">
-                  <Compass className="h-4 w-4 text-zinc-400 animate-pulse" />
-                </div>
-                <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl rounded-tl-sm px-5 py-4 flex items-center gap-3 shadow-sm">
-                  <Search className="h-4 w-4 text-blue-500 animate-pulse" />
-                  <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-                    Consultando base de conhecimento...
-                  </span>
+            {isLoading && messages[messages.length - 1]?.role === 'user' && (
+              <div className="flex w-full justify-start mb-6 animate-in fade-in duration-300">
+                <div className="flex gap-4 max-w-[85%] flex-row">
+                  <div className="h-8 w-8 mt-1 shrink-0 bg-zinc-200 dark:bg-zinc-800 rounded-full flex items-center justify-center">
+                    <Compass className="h-4 w-4 text-zinc-400 animate-pulse" />
+                  </div>
+                  <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl rounded-tl-sm px-5 py-4 flex items-center gap-3 shadow-sm">
+                    <Search className="h-4 w-4 text-blue-500 animate-pulse" />
+                    <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                      Consultando base de conhecimento...
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {error && (
-            <div className="flex flex-col items-center justify-center gap-3 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-xl p-5 text-center my-4 font-medium animate-in fade-in slide-in-from-bottom-2">
-              <p>{error}</p>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleTryAgain}
-                className="mt-1 bg-white dark:bg-zinc-950 border-red-200 dark:border-red-900 hover:bg-red-50 dark:hover:bg-red-950 hover:text-red-700 transition-colors"
-              >
-                <RefreshCcw className="mr-2 h-3 w-3" />
-                Tentar Novamente
-              </Button>
-            </div>
-          )}
+            {error && (
+              <div className="flex flex-col items-center justify-center gap-3 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-xl p-5 text-center my-4 font-medium animate-in fade-in slide-in-from-bottom-2">
+                <p>{error}</p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleTryAgain}
+                  className="mt-1 bg-white dark:bg-zinc-950 border-red-200 dark:border-red-900 hover:bg-red-50 dark:hover:bg-red-950 hover:text-red-700 transition-colors"
+                >
+                  <RefreshCcw className="mr-2 h-3 w-3" />
+                  Tentar Novamente
+                </Button>
+              </div>
+            )}
 
-          <div ref={bottomRef} className="h-4 shrink-0" />
+            <div ref={bottomRef} className="h-4 shrink-0" />
+          </div>
         </div>
       </div>
 

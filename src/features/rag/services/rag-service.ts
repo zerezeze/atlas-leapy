@@ -125,7 +125,7 @@ ${contextString}`;
     // Rastreabilidade estendida (incluindo chunkIndex)
     const uniqueSourcesMap = new Map<
       string,
-      { title: string; source: string; chunkIndex?: number }
+      { title: string; source: string; chunkIndex?: number; content?: string }
     >();
     chunks.forEach((chunk) => {
       const source = chunk.metadata.source as string;
@@ -138,6 +138,7 @@ ${contextString}`;
           title,
           source,
           chunkIndex,
+          content: chunk.content,
         });
       }
     });

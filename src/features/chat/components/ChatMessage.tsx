@@ -5,6 +5,13 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 interface ChatMessageProps {
   role: 'user' | 'assistant';
@@ -183,10 +190,28 @@ export function ChatMessage({
                       Fonte principal
                     </span>
                     <div className="flex flex-col gap-1.5 py-2 px-3 rounded-md border border-zinc-100 dark:border-zinc-800/60 bg-zinc-50/50 dark:bg-zinc-900/20 w-full md:max-w-fit">
-                      <div className="flex items-center gap-1.5 text-[11px] font-medium text-zinc-700 dark:text-zinc-300">
-                        <FileText className="h-3.5 w-3.5 shrink-0 text-blue-500 opacity-80" />
-                        <span className="break-all">{sources[0].source}</span>
-                      </div>
+                      <Dialog>
+                        <DialogTrigger className="flex items-center gap-1.5 text-[11px] font-medium text-zinc-700 dark:text-zinc-300 hover:text-blue-500 transition-colors text-left group">
+                          <FileText className="h-3.5 w-3.5 shrink-0 text-blue-500 opacity-80 group-hover:opacity-100 transition-opacity" />
+                          <span className="break-all border-b border-transparent group-hover:border-blue-500/30 transition-colors">
+                            {sources[0].source}
+                          </span>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle className="flex items-center gap-2">
+                              <FileText className="h-5 w-5 text-blue-500" />
+                              {sources[0].source}
+                            </DialogTitle>
+                          </DialogHeader>
+                          <div className="mt-4 p-4 bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800">
+                            <p className="text-sm text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap leading-relaxed">
+                              {sources[0].content ||
+                                'Conteúdo não disponível para este chunk.'}
+                            </p>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
 
                       {retrievalScore !== undefined && retrievalScore > 0 && (
                         <div className="flex flex-col gap-0.5 ml-5 mt-0.5">
@@ -219,7 +244,25 @@ export function ChatMessage({
                             <span className="text-zinc-300 dark:text-zinc-600 text-[10px]">
                               •
                             </span>
-                            <span className="break-all">{s.source}</span>
+                            <Dialog>
+                              <DialogTrigger className="text-left hover:text-blue-500 transition-colors break-all border-b border-transparent hover:border-blue-500/30">
+                                {s.source}
+                              </DialogTrigger>
+                              <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                                <DialogHeader>
+                                  <DialogTitle className="flex items-center gap-2">
+                                    <FileText className="h-5 w-5 text-blue-500" />
+                                    {s.source}
+                                  </DialogTitle>
+                                </DialogHeader>
+                                <div className="mt-4 p-4 bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800">
+                                  <p className="text-sm text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap leading-relaxed">
+                                    {s.content ||
+                                      'Conteúdo não disponível para este chunk.'}
+                                  </p>
+                                </div>
+                              </DialogContent>
+                            </Dialog>
                           </li>
                         ))}
                       </ul>

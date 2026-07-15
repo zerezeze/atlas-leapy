@@ -19,6 +19,7 @@ export const ragResponseSchema = z.object({
       title: z.string(),
       source: z.string(),
       chunkIndex: z.number().optional(),
+      content: z.string().optional(),
     })
   ),
   retrievalScore: z.number(),

@@ -5,7 +5,7 @@ import {
   Info,
   User as UserIcon,
 } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
+
 import Link from 'next/link';
 import { conversationService } from '@/features/conversations/services/conversation-service';
 import { SidebarConversations } from './SidebarConversations';
@@ -24,9 +24,9 @@ export async function Sidebar({ mobile = false }: { mobile?: boolean } = {}) {
 
   return (
     <aside
-      className={`${mobile ? 'flex' : 'hidden md:flex'} flex-col h-full w-[260px] bg-zinc-50 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800`}
+      className={`${mobile ? 'flex' : 'hidden md:flex'} flex-col h-full overflow-hidden w-[260px] bg-zinc-50 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800`}
     >
-      <div className="p-3 pb-0">
+      <div className="p-3 pb-0 shrink-0">
         <Link
           href="/"
           className="flex items-center w-full justify-start gap-2 h-10 px-4 rounded-md bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 shadow-sm transition-colors mb-4"
@@ -59,18 +59,20 @@ export async function Sidebar({ mobile = false }: { mobile?: boolean } = {}) {
         </div>
       </div>
 
-      <ScrollArea className="flex-1">
-        <div className="flex flex-col gap-1 p-3">
-          <p className="px-2 text-xs font-semibold text-zinc-500 dark:text-zinc-400 mt-2 mb-2">
-            Histórico Recente
-          </p>
+      <div className="flex-1 relative">
+        <div className="absolute inset-0 overflow-y-auto">
+          <div className="flex flex-col gap-1 p-3">
+            <p className="px-2 text-xs font-semibold text-zinc-500 dark:text-zinc-400 mt-2 mb-2">
+              Histórico Recente
+            </p>
 
-          <SidebarConversations conversations={conversations} />
+            <SidebarConversations conversations={conversations} />
+          </div>
         </div>
-      </ScrollArea>
+      </div>
 
       {session?.user && (
-        <div className="p-3 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="p-3 border-t border-zinc-200 dark:border-zinc-800 shrink-0">
           <div className="flex items-center gap-3 px-3 py-2 rounded-md bg-zinc-100/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800/50">
             <div className="h-8 w-8 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-300">
               <UserIcon className="h-4 w-4" />
