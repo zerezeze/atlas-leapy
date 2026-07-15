@@ -3,11 +3,11 @@ import { Sidebar } from './Sidebar';
 
 export function BaseLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background font-sans antialiased">
+    <div className="flex flex-col h-screen bg-white dark:bg-zinc-950 font-sans antialiased overflow-hidden">
       <Header />
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
         <Sidebar />
-        <main className="ml-64 flex-1 flex flex-col items-center justify-start p-8 bg-zinc-50/50 dark:bg-zinc-950/50">
+        <main className="flex-1 flex flex-col min-w-0 relative">
           {children}
         </main>
       </div>
