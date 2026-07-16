@@ -10,6 +10,28 @@ O Atlas é uma plataforma avançada que revoluciona o acesso ao conhecimento cor
 O Atlas é uma plataforma SaaS (Software as a Service) estruturada sobre a arquitetura RAG (Retrieval-Augmented Generation).
 Em muitas empresas, o conhecimento interno fica fragmentado e perdido em milhares de arquivos PDF, DOCX e textos soltos, gerando ineficiência e perda de tempo em buscas manuais. O Atlas resolve esse problema absorvendo esses documentos e utilizando Inteligência Artificial para compreender o contexto, permitindo que qualquer colaborador converse diretamente com a base de conhecimento e receba respostas exatas, sempre acompanhadas da fonte.
 
+## Demonstração
+
+### 1. Tela de Login
+
+![Login](screenshots/login.png)
+Acesso seguro com autenticação garantindo a proteção e o isolamento dos dados de cada organização.
+
+### 2. Chat com Resposta da IA
+
+![Chat](screenshots/chat.png)
+Interface interativa com respostas geradas progressivamente via streaming baseadas no contexto interno.
+
+### 3. Knowledge Base
+
+![Knowledge Base](screenshots/knowledge-base.png)
+Ambiente para upload e gestão rápida dos documentos e manuais (PDF, DOCX, MD, TXT) que alimentam o banco de vetores.
+
+### 4. Resposta e Fontes (Citations)
+
+![Citations](screenshots/citations.png)
+Modais detalhados mostrando o trecho exato e a precisão do documento original utilizado como base para a resposta.
+
 ## 3. Arquitetura
 
 O fluxo de dados da aplicação foi desenhado para garantir isolamento Multi-Tenant e alta performance vetorial.
