@@ -151,4 +151,4 @@ Embora a fundação técnica do RAG esteja muito madura, algumas atualizações 
 
 ## 12. Sobre o Projeto
 
-O Atlas foi inteiramente planejado, arquitetado e desenvolvido por **José Everton Mota Rodrigues** como solução técnica de nível Sênior para o desafio prático do Fellowship da **Leapy**.
+O Atlas foi inteiramente planejado, arquitetado e desenvolvido por **José Everton Mota Rodrigues** como solução técnica para o desafio prático do Fellowship da **Leapy**.
