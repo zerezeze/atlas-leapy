@@ -174,3 +174,47 @@ Embora a fundação técnica do RAG esteja muito madura, algumas atualizações 
 ## 12. Sobre o Projeto
 
 O Atlas foi inteiramente planejado, arquitetado e desenvolvido por **José Everton Mota Rodrigues** como solução técnica para o desafio prático do Fellowship da **Leapy**.
+
+---
+
+## 🧪 Testes Unitários
+
+O Atlas possui uma suíte de testes unitários desenvolvida com **Vitest** e **Testing Library**, cobrindo os principais fluxos da aplicação e suas regras de negócio.
+
+### Tecnologias utilizadas
+
+- Vitest
+- Testing Library
+- Jest DOM
+- jsdom
+
+### Executando os testes
+
+```bash
+pnpm test
+```
+
+Modo Watch
+
+```bash
+pnpm test:watch
+```
+
+Cobertura
+
+```bash
+pnpm test:coverage
+```
+
+### Cobertura
+
+A suíte contempla testes para:
+
+- Componentes React
+- Hooks personalizados
+- Serviços de RAG
+- Utilitários
+- Tratamento de erros
+- Recuperação de contexto
+- Geração de respostas
+- Fluxos principais da aplicação

@@ -31,7 +31,7 @@ async function seedAcme() {
   const passwordHash = await bcrypt.hash(password, 10);
 
   console.log(`Criando usuário ${email}...`);
-  const { data: user, error: userError } = await supabase
+  const { error: userError } = await supabase
     .from('users')
     .upsert(
       {
